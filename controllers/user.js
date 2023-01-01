@@ -3,7 +3,6 @@ import { passwordHasher, passwordChecker } from "../utils/password-hasher.js";
 import { generateAccessToken, generateRefreshToken, generateAcessTokenFromRefreshToken } from "../utils/jwt-serializer.js";
 
 const userController = {
-    // function to add user to database
     async add(req, res) {
         const { password, full_name, email } = req.body
         const user = await userOperations.find_by_email(email)
@@ -70,7 +69,6 @@ const userController = {
     async generateAccessFromRefresh(req,res){
         const { refresh_token } = req.body
         const token = generateAcessTokenFromRefreshToken(refresh_token)
-        console.log('token',token)
         if(token==null){
             res.status(401)
             return res.json({

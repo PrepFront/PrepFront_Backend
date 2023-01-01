@@ -3,7 +3,9 @@ import { config } from 'dotenv'
 config()
 
 function generateAccessToken(obj) {
-    const key = jwt.sign(obj, process.env.ACCESS_TOKEN_SECRET_KEY, {expiresIn: '1h'});
+    const key = jwt.sign({
+        data:obj
+    }, process.env.ACCESS_TOKEN_SECRET_KEY, {expiresIn: '1h'});
     return key
 }
 
@@ -16,7 +18,6 @@ function generateRefreshToken(obj) {
 
 function verifyAccessToken(token){
     return jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY,(err,decoded)=>{
-        console.log(decoded)
         if(err) return null
         return decoded.data
     })
