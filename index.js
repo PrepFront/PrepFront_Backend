@@ -6,7 +6,8 @@ import userRoute from './routes/users.js'
 import serviceRoute from './routes/services.js'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUIExpress from 'swagger-ui-express'
-import os from 'node:os'
+import { config } from 'dotenv'
+config()
 
 const app = express()
 const options = {
@@ -35,7 +36,7 @@ app.get('/',(req,res)=>{
     return res.send(`server is running and current time is ${new Date()}`)
 })
 
-const PORT = 1234
+const PORT = process.env.PORT || 1234
 app.listen(PORT, () => {
     console.log(`Server Listning on port ${PORT}`)
 })
