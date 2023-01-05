@@ -3,8 +3,10 @@ import connection from './database/connection.js'
 
 import express from 'express'
 import userRoute from './routes/users.js'
+import serviceRoute from './routes/services.js'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUIExpress from 'swagger-ui-express'
+import os from 'node:os'
 
 const app = express()
 const options = {
@@ -27,7 +29,11 @@ app.use('/api-docs', swaggerUIExpress.serve, swaggerUIExpress.setup(openapiSpeci
 
 //middlewares
 app.use(express.json())
-app.use('/user', userRoute)
+app.use('/api/user', userRoute)
+app.use('/api/service', serviceRoute)
+app.get('/',(req,res)=>{
+    return res.send(`server is running and current time is ${new Date()}`)
+})
 
 const PORT = 1234
 app.listen(PORT, () => {
