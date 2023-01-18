@@ -34,7 +34,7 @@ const userController = {
             return res.json(newuser)
         }
         catch (e) {
-            return res.json({
+            return res.status(400).json({
                 message: e.message
             })
         }
