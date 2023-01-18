@@ -6,6 +6,7 @@ import userRoute from './routes/users.js'
 import serviceRoute from './routes/services.js'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUIExpress from 'swagger-ui-express'
+import cors from 'cors'
 import { config } from 'dotenv'
 config()
 
@@ -30,6 +31,7 @@ app.use('/api-docs', swaggerUIExpress.serve, swaggerUIExpress.setup(openapiSpeci
 
 //middlewares
 app.use(express.json())
+app.use(cors())
 app.use('/api/user', userRoute)
 app.use('/api/service', serviceRoute)
 app.get('/',(req,res)=>{
