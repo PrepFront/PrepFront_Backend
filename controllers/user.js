@@ -5,6 +5,9 @@ import { generateAccessToken, generateRefreshToken, generateAcessTokenFromRefres
 const userController = {
     async add(req, res) {
         const { password, full_name, email } = req.body
+        if (password.length === 0 || email.length === 0 || full_name.length === 0) return res.status(400).json({
+            message: "feilds can't be empty"
+        })
         const user = await userOperations.find_by_email(email)
         if (user.length > 0) {
             return res.status(400).json({
@@ -38,6 +41,9 @@ const userController = {
     },
     async login(req, res) {
         const { email, password } = req.body
+        if (password.length === 0 || email.length === 0) return res.status(400).json({
+            message: "feilds can't be empty"
+        })
         const user = await userOperations.find_by_email(email)
         if (user.length == 0) {
             res.status(401)
@@ -66,10 +72,10 @@ const userController = {
             refresh_token
         })
     },
-    async generateAccessFromRefresh(req,res){
+    async generateAccessFromRefresh(req, res) {
         const { refresh_token } = req.body
         const token = generateAcessTokenFromRefreshToken(refresh_token)
-        if(token==null){
+        if (token == null) {
             res.status(401)
             return res.json({
                 message: "invalid token signature"
@@ -81,7 +87,7 @@ const userController = {
             refresh_token
         })
     },
-    async getUserDetails(req,res){
+    async getUserDetails(req, res) {
         return res.json(req.user)
     }
 }
