@@ -1,16 +1,69 @@
-// for initiliazing the database connection
-import connection from './database/connection.js'
-
+import AdminJS from 'adminjs'
+import AdminJSExpress from '@adminjs/express'
+import * as AdminJSMongoose from '@adminjs/mongoose'
 import express from 'express'
-import userRoute from './routes/users.js'
-import serviceRoute from './routes/services.js'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUIExpress from 'swagger-ui-express'
 import cors from 'cors'
 import { config } from 'dotenv'
+
+import userRoute from './routes/users.js'
+import serviceRoute from './routes/services.js'
+import connection from './database/connection.js'
+import { UserModel } from './database/models/user.js'
+import userOperations from './database/operations/user.js'
+import { passwordChecker } from './utils/password-hasher.js'
+
 config()
 
+const PORT = process.env.PORT || 1234
+
+const authenticate = async (email, password) => {
+    const ADMINS = await getAllAdmins()
+    console.log(ADMINS)
+    for(let index in ADMINS){
+        const ADMIN = ADMINS[index]
+        const passwordValid = await passwordChecker(password, ADMIN.password)
+        if (email === ADMIN.email && passwordValid) {
+            return Promise.resolve(ADMIN)
+        }
+    }
+    return null
+}
+
+AdminJS.registerAdapter({
+    Resource: AdminJSMongoose.Resource,
+    Database: AdminJSMongoose.Database
+})
+
+const adminOptions = {
+    resources: [
+        {
+            resource: UserModel,
+            options: {
+                navigation: {
+                    name: 'Users',
+                    icon: 'User'
+                },
+                editProperties: ['full_name', 'email', 'isAdmin'],
+                listProperties: ['full_name', 'email', 'isAdmin'],
+                showProperties: ['full_name', '_id', 'email', 'isAdmin','createdAt','updatedAt'],
+                filterProperties: ['_id', 'full_name', 'email', 'isAdmin','updatedAt','createdAt']
+            },
+        }
+    ],
+}
 const app = express()
+const admin = new AdminJS(adminOptions)
+const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+    admin,
+    {
+        authenticate,
+        cookieName: 'adminjs',
+        cookiePassword: 'sessionsecret',
+    }
+)
+
 const options = {
     definition: {
         openapi: '3.0.0',
@@ -28,17 +81,24 @@ const options = {
 const openapiSpecification = swaggerJsDocs(options);
 app.use('/api-docs', swaggerUIExpress.serve, swaggerUIExpress.setup(openapiSpecification))
 
+// linking AdminJS to express app
+app.use(admin.options.rootPath, adminRouter)
 
 //middlewares
 app.use(express.json())
 app.use(cors())
 app.use('/api/user', userRoute)
 app.use('/api/service', serviceRoute)
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     return res.send(`server is running and current time is ${new Date()}`)
 })
 
-const PORT = process.env.PORT || 1234
 app.listen(PORT, () => {
     console.log(`Server Listning on port ${PORT}`)
 })
+
+admin.watch()
+
+async function getAllAdmins() {
+    return await userOperations.find_admins()
+}

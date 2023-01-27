@@ -18,12 +18,22 @@ const UserSchema = new Schema({
     'password': {
         type: String,
         required: true,
-        maxlength: 1000
+        maxlength: 1000,
+        immutable: true
     },
     'full_name': {
         type: String,
         required: true
+    },
+    'isAdmin':{
+        type: Boolean,
+        default: false
+    },
+    'College': {
+        type: String,
     }
+},{
+    timestamps: true,
 })
 
 export default UserSchema
