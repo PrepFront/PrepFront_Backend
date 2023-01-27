@@ -4,3 +4,4 @@
 
 ### features implemented till now:
 - JWT based authentication and authorisation 
+- Admin Dashboard
