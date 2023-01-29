@@ -1,6 +1,9 @@
+import ContentOperation from "../database/operations/content.js"
+
 const service2Controller={
-    getDetails(req,res){
-        return res.send('technical goes here')
+    async getDetails(req,res){
+        const data = await ContentOperation.getAllTechnical()
+        return res.json(data)
     }
 }
 

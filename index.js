@@ -11,6 +11,7 @@ import userRoute from './routes/users.js'
 import serviceRoute from './routes/services.js'
 import connection from './database/connection.js'
 import { UserModel } from './database/models/user.js'
+import { ContentModel } from './database/models/content.js'
 import userOperations from './database/operations/user.js'
 import { passwordChecker } from './utils/password-hasher.js'
 
@@ -20,8 +21,7 @@ const PORT = process.env.PORT || 1234
 
 const authenticate = async (email, password) => {
     const ADMINS = await getAllAdmins()
-    console.log(ADMINS)
-    for(let index in ADMINS){
+    for (let index in ADMINS) {
         const ADMIN = ADMINS[index]
         const passwordValid = await passwordChecker(password, ADMIN.password)
         if (email === ADMIN.email && passwordValid) {
@@ -43,12 +43,22 @@ const adminOptions = {
             options: {
                 navigation: {
                     name: 'Users',
-                    icon: 'User'
                 },
                 editProperties: ['full_name', 'email', 'isAdmin'],
                 listProperties: ['full_name', 'email', 'isAdmin'],
-                showProperties: ['full_name', '_id', 'email', 'isAdmin','createdAt','updatedAt'],
-                filterProperties: ['_id', 'full_name', 'email', 'isAdmin','updatedAt','createdAt']
+                showProperties: ['full_name', '_id', 'email', 'isAdmin', 'createdAt', 'updatedAt'],
+                filterProperties: ['_id', 'full_name', 'email', 'isAdmin', 'updatedAt', 'createdAt']
+            },
+        },
+        {
+            resource: ContentModel,
+            options: {
+                navigation: {
+                    name: "Skills",
+                },
+                editProperties: ['title', 'description', 'feild'],
+                listProperties: ['feild', 'title', 'slug'],
+                filterProperties: ['_id', 'title', 'description', 'updatedAt', 'createdAt','feild']
             },
         }
     ],

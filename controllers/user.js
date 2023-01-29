@@ -4,7 +4,7 @@ import { generateAccessToken, generateRefreshToken, generateAcessTokenFromRefres
 
 const userController = {
     async add(req, res) {
-        const { password, full_name, email } = req.body
+        const { password, full_name, email, isAdmin } = req.body
         if (password.length === 0 || email.length === 0 || full_name.length === 0) return res.status(400).json({
             message: "feilds can't be empty"
         })
@@ -22,7 +22,8 @@ const userController = {
             let newuser = await userOperations.add({
                 password: hashedPass,
                 full_name: full_name,
-                email
+                email,
+                isAdmin
             })
             newuser = Object.keys(newuser._doc).filter(key =>
                 key !== 'password').reduce((obj, key) => {

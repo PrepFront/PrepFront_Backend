@@ -1,6 +1,9 @@
+import ContentOperation from "../database/operations/content.js"
+
 const service3Controller={
-    getDetails(req,res){
-        return res.send('non-technical goes here')
+    async getDetails(req,res){
+        const data = await ContentOperation.getAllNonTechnical()
+        return res.json(data)
     }
 }
 
