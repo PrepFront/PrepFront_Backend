@@ -29,8 +29,19 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    'College': {
+    'college': {
         type: String,
+        required: true,
+        default: 'NA',
+        maxlength: 30,
+    },
+    'qualification':{
+        type: String,
+        maxlength: 20,
+    },
+    'phoneNo':{
+        type: Schema.Types.ObjectId,
+        ref: 'phoneNumber'
     }
 },{
     timestamps: true,

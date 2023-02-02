@@ -1,6 +1,6 @@
 import ServiceSchema from "../schemas/service.js";
 import { model } from "mongoose";
 
-const ContentModel = model('technical', ServiceSchema)
+const ContentModel = model('technicals', ServiceSchema)
 
 export { ContentModel };
