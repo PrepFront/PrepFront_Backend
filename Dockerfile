@@ -15,4 +15,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "yarn", "run", "start" ]
+CMD [ "npm", "run", "start" ]
