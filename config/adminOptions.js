@@ -4,7 +4,6 @@ import { PhoneModel } from "../database/models/phoneNumber.js";
 
 export default {
     resources: [
-        PhoneModel,
         {
             resource: UserModel,
             options: {
@@ -28,16 +27,16 @@ export default {
                 filterProperties: ['_id', 'title', 'description', 'updatedAt', 'createdAt','feild']
             },
         },
-        // {
-        //     resource: PhoneModel,
-        //     options: {
-        //         navigation: {
-        //             name: "PhoneNumber",
-        //         },
-        //         editProperties: ['countryCode','number'],
-        //         listProperties: ['countryCode','number'],
-        //         filterProperties: ['_id','countryCode','number']
-        //     }
-        // }
+        {
+            resource: PhoneModel,
+            options: {
+                navigation: {
+                    name: "PhoneNumber",
+                },
+                editProperties: ['countryCode','number'],
+                listProperties: ['countryCode','number'],
+                filterProperties: ['_id','countryCode','number']
+            }
+        }
     ],
 }

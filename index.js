@@ -1,3 +1,5 @@
+import connection from './database/connection.js'
+
 import AdminJS from 'adminjs'
 import AdminJSExpress from '@adminjs/express'
 import * as AdminJSMongoose from '@adminjs/mongoose'
@@ -55,8 +57,8 @@ app.use(admin.options.rootPath, adminRouter)
 //middlewares
 app.use(express.json())
 app.use(cors())
-app.use('/api/user', userRoute)
-app.use('/api/service', serviceRoute)
+app.use('/user', userRoute)
+app.use('/service', serviceRoute)
 app.get('/', (req, res) => {
     return res.send(`server is running and current time is ${new Date()}`)
 })

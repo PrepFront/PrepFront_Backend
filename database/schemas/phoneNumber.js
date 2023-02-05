@@ -4,7 +4,7 @@ const PhoneNumberSchema = new Schema({
     'countryCode':{
         type: String,
         enum: ["+91","+92"],
-        default: "+91"
+        required: true
     },
     'number': {
         type: String,
