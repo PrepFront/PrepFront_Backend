@@ -14,6 +14,7 @@ import adminOptions from './config/adminOptions.js'
 import authenticate from './utils/adminauth.js'
 import councellingRoute from './routes/councelling.js'
 import ExpertRouter from './routes/experts.js'
+import serviceRoute from './routes/service.js'
 
 config()
 
@@ -60,6 +61,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/user', userRoute)
 app.use('/service/councelling', councellingRoute)
+app.use('/service', serviceRoute)
 app.use('/experts', ExpertRouter)
 app.get('/', (req, res) => {
     return res.send(`server is running and current time is ${new Date()}`)
