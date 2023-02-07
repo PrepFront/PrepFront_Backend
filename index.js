@@ -10,9 +10,10 @@ import cors from 'cors'
 import { config } from 'dotenv'
 
 import userRoute from './routes/users.js'
-import serviceRoute from './routes/services.js'
 import adminOptions from './config/adminOptions.js'
 import authenticate from './utils/adminauth.js'
+import councellingRoute from './routes/councelling.js'
+import ExpertRouter from './routes/experts.js'
 
 config()
 
@@ -58,7 +59,8 @@ app.use(admin.options.rootPath, adminRouter)
 app.use(express.json())
 app.use(cors())
 app.use('/user', userRoute)
-app.use('/service', serviceRoute)
+app.use('/service/councelling', councellingRoute)
+app.use('/experts', ExpertRouter)
 app.get('/', (req, res) => {
     return res.send(`server is running and current time is ${new Date()}`)
 })

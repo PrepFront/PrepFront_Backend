@@ -12,6 +12,9 @@ const constants = {
         SERVICE_3: '/non-tech-skills',
         SERVICE_4: '/councelling',
         SERVICE_5: '/dcs'
+      },
+      EXPERTS: {
+        GET_EXPERTS: '/get'
       }
     }
 }
