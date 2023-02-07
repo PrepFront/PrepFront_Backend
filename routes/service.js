@@ -50,7 +50,7 @@ serviceRoute.get(constants.ROUTES.SERVICES.SERVICE_3,service3Controller.getDetai
  *          200:
  *              description: Return what goes to that endpoint for now
  */
-serviceRoute.get(constants.ROUTES.SERVICES.SERVICE_4,service4Controller.getDetails)
+serviceRoute.post(constants.ROUTES.SERVICES.SERVICE_4,service4Controller.scheduleMeeting)
 
 /**
  * @swagger
