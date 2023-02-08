@@ -13,7 +13,7 @@ import userRoute from './routes/users.js'
 import adminOptions from './config/adminOptions.js'
 import authenticate from './utils/adminauth.js'
 import ExpertRouter from './routes/experts.js'
-import serviceRoute from './routes/service.js'
+import serviceRoute from './routes/service/index.js'
 
 config()
 

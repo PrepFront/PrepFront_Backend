@@ -1,10 +1,10 @@
 import { Router } from "express";
-import constants from "../utils/app-constants.js";
-import service1Controller from "../controllers/service-1.js";
-import service2Controller from "../controllers/service-2.js";
-import service3Controller from "../controllers/service-3.js";
-import service4Controller from "../controllers/service-4.js";
-import service5Controller from "../controllers/service-5.js";
+import constants from "../../utils/app-constants.js";
+import service1Controller from "../../controllers/service-1.js";
+import service2Controller from "../../controllers/service-2.js";
+import service3Controller from "../../controllers/service-3.js";
+import service5Controller from "../../controllers/service-5.js";
+import councellingRoute from "./councelling.js";
 
 const serviceRoute = Router()
 
@@ -50,7 +50,7 @@ serviceRoute.get(constants.ROUTES.SERVICES.SERVICE_3,service3Controller.getDetai
  *          200:
  *              description: Return what goes to that endpoint for now
  */
-serviceRoute.post(constants.ROUTES.SERVICES.SERVICE_4,service4Controller.scheduleMeeting)
+serviceRoute.post(constants.ROUTES.SERVICES.SERVICE_4,councellingRoute)
 
 /**
  * @swagger
@@ -61,6 +61,6 @@ serviceRoute.post(constants.ROUTES.SERVICES.SERVICE_4,service4Controller.schedul
  *          200:
  *              description: Return what goes to that endpoint for now
  */
-serviceRoute.get(constants.ROUTES.SERVICES.SERVICE_5,service5Controller.getDetails)
+serviceRoute.get(constants.ROUTES.SERVICES.SERVICE_5,service5Controller.getMeetings)
 
 export default serviceRoute

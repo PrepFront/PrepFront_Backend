@@ -2,6 +2,7 @@ import { ContentModel } from "../database/models/content.js";
 import { UserModel } from "../database/models/user.js";
 import { PhoneModel } from "../database/models/phoneNumber.js";
 import { ExpertModel } from "../database/models/experts.js";
+import { DCSModel } from "../database/models/dcs.js";
 
 export default {
     resources: [
@@ -45,9 +46,20 @@ export default {
                 navigation: {
                     name: "Expert",
                 },
-                editProperties: ['email', 'name', 'profession','position','organization'],
+                editProperties: ['email', 'name', 'profession', 'position', 'organization'],
                 listProperties: ['name'],
-                filterProperties: ['_id', 'email', 'name', 'profession','position','organization']
+                filterProperties: ['_id', 'email', 'name', 'profession', 'position', 'organization']
+            }
+        },
+        {
+            resource: DCSModel,
+            options: {
+                navigation: {
+                    name: "DCS Sessions",
+                },
+                editProperties: ['expert', 'name', 'time'],
+                listProperties: ['name','time','createdAt'],
+                filterProperties: ['_id', 'expert', 'name', 'time','createdAt','updatedAt']
             }
         }
     ],

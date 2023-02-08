@@ -1,6 +1,9 @@
+import { getMeetings } from "../database/operations/dcs.js"
+
 const service5Controller={
-    getDetails(req,res){
-        return res.send('DCS enroll goes here')
+    async getMeetings(req,res){
+        const data = await getMeetings()
+        res.json(data)
     }
 }
 
