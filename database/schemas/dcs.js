@@ -17,16 +17,15 @@ const DCSSchema = new Schema({
     name: {
         type: Schema.Types.String,
         required: true
-    }
+    },
 }, {
     timestamps: true,
     autoIndex: true
 })
 
-DCSSchema.pre('save', function (next) {
+DCSSchema.pre('save',function (next) {
     this.meetingUrl = `https://meet.jit.si/${generateUUID()}`
     this.time = (new Date(this.time))/1000
-    console.log(this.expert)
     next();
 });
 

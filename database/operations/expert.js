@@ -1,7 +1,7 @@
 import { ExpertModel } from "../models/experts.js";
 
-function getExperts(){
-    return ExpertModel.find()
+function getExperts(config={}){
+    return ExpertModel.find(config)
 }
 
 export {
