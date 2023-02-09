@@ -5,7 +5,7 @@ config()
 function generateAccessToken(obj) {
     const key = jwt.sign({
         data:obj
-    }, process.env.ACCESS_TOKEN_SECRET_KEY, {expiresIn: '1h'});
+    }, process.env.ACCESS_TOKEN_SECRET_KEY, {expiresIn: '24h'});
     return key
 }
 
