@@ -22,7 +22,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    'isAdmin':{
+    'isAdmin': {
         type: Boolean,
         default: false
     },
@@ -32,15 +32,12 @@ const UserSchema = new Schema({
         default: 'NA',
         maxlength: 30,
     },
-    'qualification':{
+    'qualification': {
         type: String,
         maxlength: 20,
     },
-    'phoneNo':{
-        type: Schema.Types.ObjectId,
-        ref: 'phoneNumber'
-    }
-},{
+    'phoneNo': { type: String }
+}, {
     timestamps: true,
 })
 

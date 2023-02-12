@@ -1,11 +1,10 @@
 import userOperations from "../database/operations/user.js";
 import { passwordHasher, passwordChecker } from "../utils/password-hasher.js";
 import { generateAccessToken, generateRefreshToken, generateAcessTokenFromRefreshToken } from "../utils/jwt-serializer.js";
-import phoneOperation from '../database/operations/phone.js'
 
 const userController = {
     async add(req, res) {
-        const { password, full_name, email, isAdmin, phone_number, country_code, ...args } = req.body
+        const { password, full_name, email, isAdmin, phoneNo, ...args } = req.body
         if (password.length === 0 || email.length === 0 || full_name.length === 0) return res.status(400).json({
             message: "feilds can't be empty"
         })
@@ -20,16 +19,12 @@ const userController = {
             return res.status(500)
         }
         try {
-            let phoneNumber = await phoneOperation.add({
-                country_code,
-                number: phone_number
-            })
             let newuser = await userOperations.add({
                 password: hashedPass,
-                full_name: full_name,
+                full_name,
                 email,
                 isAdmin,
-                phoneNo: phoneNumber,
+                phoneNo,
                 ...args
             })
             newuser = Object.keys(newuser._doc).filter(key =>
