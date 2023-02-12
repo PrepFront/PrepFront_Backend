@@ -17,6 +17,9 @@ const ServiceSchema = new Schema({
         type: String,
         required: true,
         enum: ['initial','tech','non-tech']
+    },
+    image:{
+        type: Schema.Types.String
     }
 },{
     timestamps: true,
