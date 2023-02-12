@@ -1,4 +1,4 @@
-import { send_email } from "../utils/send_email.js"
+import { sendMeetingConfirmation } from "../utils/send_email.js"
 import { generateUUID } from "../utils/uuid.js"
 
 const service4Controller = {
@@ -13,14 +13,11 @@ const service4Controller = {
         date_time = (new Date(date_time)).toISOString()
         const emails = [req.user.email, expert.email]
         const meetingURL = `https://meet.jit.si/${generateUUID()}`
-
-        const text = `
-            Your meeting is scheduled on ${date_time}. Meeting URL: ${meetingURL}. Join on time.
-        `
         try{
-            const data = await send_email(emails,'Upcoming Meetings',text)
+            const data = await sendMeetingConfirmation(emails,req.user,meetingURL,date_time,expert)
             return res.json(data)
         } catch(e){
+            console.log(e)
             return res.status(400).send('error occured')
         }
     }
