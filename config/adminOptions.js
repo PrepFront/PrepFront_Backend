@@ -32,7 +32,7 @@ export default {
                 navigation: {
                     name: "Skills",
                 },
-                editProperties: ['title', 'description', 'feild'],
+                editProperties: ['title', 'description', 'feild','image'],
                 listProperties: ['feild', 'title', 'slug'],
                 filterProperties: ['_id', 'title', 'description', 'updatedAt', 'createdAt', 'feild']
             },
